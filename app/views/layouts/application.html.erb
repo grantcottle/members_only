@@ -11,9 +11,9 @@
   </head>
 
   <body>
-    <% if user_signed_in?  %>
-    <%= render 'layouts/navbar' %>
-  <% end %>
-    <%= yield %>   
+    <p id="notice"><%= notice %></p>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

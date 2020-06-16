@@ -1,25 +1,34 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Posts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<%= render 'layouts/navbar' %>
+<div class="container posts-container">
+  <h1>Posts</h1>
+  <div class="container fluid py-6">
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="card-body">
+        <div class="media">
+          <div class="avatar mr-5">
+            <% if user_signed_in?  %>
+              <%= image_tag post.user.gravatar_url , class: 'avatar-img' %>
+            <% else %>
+              <%= image_tag "anonymous.jpeg", class: 'avatar-img' %>
+            <% end %>
+          </div>
+          <div class='media-body'>
+            <div class="d-flex align-items-center mb-1">
+              <h2 class="font-bold mb-6">
+                <% if user_signed_in? %>
+                  <%= post.user.username || 'No Name' %>
+                <% else %>
+                  Anonymous
+                <% end %>
+              </h2>
+              <p><%= post.created_at.to_s(:long) %></p>
+            </div>
+            <div class="text-truncate">
+              <%= post.body %>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+    <br>
+  </div>
